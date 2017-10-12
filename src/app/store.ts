@@ -15,10 +15,16 @@ export function rootReducer(state: IAppState, action): IAppState {
     switch (action.type) {
         case ADD_TODO:
             action.todo.id = state.todos.length + 1;
-            return Object.assign({}, state, {
-                todos: state.todos.concat(Object.assign({}, action.todo)),
+            // return Object.assign({}, state, {
+            //     todos: state.todos.concat(Object.assign({}, action.todo)),
+            //     lastUpdate: new Date()
+            // });
+
+            return {
+                ...state,
+                todos: state.todos.concat({...action.todo}),
                 lastUpdate: new Date()
-            });
+            };
 
         case TOGGLE_TODO:
             const todo = state.todos.find(t => t.id === action.id);
